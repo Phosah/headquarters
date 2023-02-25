@@ -12,7 +12,7 @@ const taskCompleted = () => {
 </script>
 
 <template>
-  <div class="flex gap-3">
+  <section class="flex gap-3 mb-2 p-2 border border-gray-600 rounded-md">
     <input
       @change="taskCompleted()"
       type="checkbox"
@@ -23,7 +23,7 @@ const taskCompleted = () => {
       {{ todo.name }}
     </p>
     <button @click="$emit('deleteTask', todo.id)" class="text-red-700">
-      X
+      &times;
     </button>
-  </div>
+  </section>
 </template>

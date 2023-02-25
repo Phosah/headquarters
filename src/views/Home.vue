@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, type Ref } from "vue";
-import Todo from "@/components/Todo.vue";
+import Todos from "@/components/Todos.vue";
 const todoInput = ref("");
 const todos: Ref<any> = ref([
   {
@@ -13,23 +13,41 @@ const todos: Ref<any> = ref([
     name: "Implement Gruve changes",
     completed: false,
   },
+  {
+    id: 3,
+    name: "Learn flutter",
+    completed: false,
+  },
 ]);
+
 const addTodo = () => {
-  todos.value.unshift({ name: todoInput.value, completed: false });
-  console.log(todos.value);
+  const newTodo = ref({
+    id: todos.value.length + 1,
+    name: todoInput.value,
+    completed: false,
+  });
+  // todos.value.unshift({
+  //   id: todos.value.length + 1,
+  //   name: todoInput.value,
+  //   completed: false,
+  // });
+  todos.value = [...todos.value, newTodo.value];
   todoInput.value = "";
 };
 const deletedTask = (id: number) => {
-  todos.value = todos.value.filter((todo: { id: number }) => todo.id !== id);
+  if (confirm("Are you sure ?")) {
+    todos.value = todos.value.filter((todo: { id: number }) => todo.id !== id);
+  }
 };
 </script>
 
 <template>
-  <main class="flex flex-col items-center max-w-3xl mx-auto py-6 bg-red-100">
+  <main class="flex flex-col items-center max-w-3xl mx-auto py-6">
     <section>
       <p v-if="todos.length < 0" class="mb-4 text-sm">No todos currently</p>
       <form class="mb-4">
         <input
+          class="p-2 rounded-md"
           v-model="todoInput"
           type="text"
           name="todos"
@@ -38,14 +56,12 @@ const deletedTask = (id: number) => {
         />
         <button
           @click.prevent="addTodo()"
-          class="w-12 ml-2 bg-red-500 rounded-md"
+          class="w-12 ml-2 p-2 bg-red-500 rounded-md text-white"
         >
           Add
         </button>
       </form>
-      <div v-for="(todo, ix) in todos" :key="ix">
-        <Todo :todo="todo" @delete-task="deletedTask(todo.id)" />
-      </div>
+      <Todos :all-todos="todos" @delete-task="deletedTask" />
     </section>
   </main>
 </template>

@@ -4,7 +4,7 @@ import { RouterLink, RouterView } from "vue-router";
 
 <template>
   <header>
-    <nav class="flex justify-center gap-4 max-w-xl mx-auto py-6">
+    <nav class="flex justify-center gap-4 max-w-xl px-6 mx-auto py-6">
       <RouterLink to="/">Todos</RouterLink>
       <RouterLink to="/about">Review</RouterLink>
     </nav>
@@ -12,3 +12,10 @@ import { RouterLink, RouterView } from "vue-router";
 
   <RouterView />
 </template>
+
+<style>
+.router-link-active {
+  color: rgb(239 68 68);
+  font-weight: 700;
+}
+</style>
