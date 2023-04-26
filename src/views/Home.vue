@@ -2,41 +2,41 @@
 import { ref, type Ref } from "vue";
 import Todos from "@/components/Todos.vue";
 const todoInput = ref("");
-const todos: Ref<any> = ref([
-  {
-    id: 1,
-    name: "Create todo app",
-    completed: false,
-  },
-  {
-    id: 2,
-    name: "Implement Gruve changes",
-    completed: false,
-  },
-  {
-    id: 3,
-    name: "Learn flutter",
-    completed: false,
-  },
-]);
+// const todos: Ref<any> = ref([
+//   {
+//     id: 1,
+//     name: "Create todo app",
+//     completed: false,
+//   }
+// ]);
+
+const todos = ref<any[]>(
+  JSON.parse((localStorage.getItem("todos") as string) ?? "[]")
+);
+
+console.log(todos);
 
 const addTodo = () => {
-  const newTodo = ref({
+  const newTodo = {
     id: todos.value.length + 1,
     name: todoInput.value,
     completed: false,
-  });
-  // todos.value.unshift({
-  //   id: todos.value.length + 1,
-  //   name: todoInput.value,
-  //   completed: false,
-  // });
-  todos.value = [...todos.value, newTodo.value];
+  };
+
+  todos.value = [newTodo, ...todos.value];
+
+  // Add to local storage
+  localStorage.setItem("todos", JSON.stringify(todos.value));
+  console.log(todos.value);
+
+  // Clear input
   todoInput.value = "";
 };
 const deletedTask = (id: number) => {
   if (confirm("Are you sure ?")) {
     todos.value = todos.value.filter((todo: { id: number }) => todo.id !== id);
+
+    localStorage.setItem("todos", JSON.stringify(todos.value));
   }
 };
 </script>
