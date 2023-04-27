@@ -14,8 +14,6 @@ const todos = ref<any[]>(
   JSON.parse((localStorage.getItem("todos") as string) ?? "[]")
 );
 
-console.log(todos);
-
 const addTodo = () => {
   const newTodo = {
     id: todos.value.length + 1,

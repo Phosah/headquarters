@@ -12,7 +12,7 @@ const taskCompleted = () => {
 </script>
 
 <template>
-  <section class="flex gap-3 mb-2 p-2 border border-gray-600 rounded-md">
+  <section class="flex gap-3 p-2 border border-gray-600 rounded-md">
     <input
       @change="taskCompleted()"
       type="checkbox"
